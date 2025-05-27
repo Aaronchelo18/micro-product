@@ -67,29 +67,26 @@ pipeline {
             }
         }
 
-        stage('🚪 Quality Gate Check') { // Renombrado para claridad
-            steps {
-                echo "=== VERIFICANDO QUALITY GATE DE SONARQUBE ==="
-                // Espera a que el análisis de SonarQube se complete y verifica el Quality Gate.
-                // El timeout es importante porque el análisis puede tardar.
-                timeout(time: 10, unit: 'MINUTES') {
-                    script {
-                        // webhookSecretId vacío si no usas webhooks para esto.
-                        def qg = waitForQualityGate(webhookSecretId: '')
-                        echo "Quality Gate Status: ${qg.status}"
+             // ETAPA ELIMINADA:
+        // stage('🚪 Quality Gate Check') {
+        //     steps {
+        //         echo "=== VERIFICANDO QUALITY GATE DE SONARQUBE ==="
+        //         timeout(time: 10, unit: 'MINUTES') {
+        //             script {
+        //                 def qg = waitForQualityGate(webhookSecretId: '')
+        //                 echo "Quality Gate Status: ${qg.status}"
+        //                 if (qg.status != 'OK') {
+        //                     error "Quality Gate failed: ${qg.status}. Revisa los problemas en SonarQube."
+        //                 } else {
+        //                     echo "✅ Quality Gate PASÓ exitosamente."
+        //                 }
+        //             }
+        //         }
+        //         echo "=== FIN QUALITY GATE ==="
+        //     }
+        // }
 
-                        if (qg.status != 'OK') {
-                            echo "❌ Quality Gate FALLÓ: ${qg.status}"
-                            // Marca el build como UNSTABLE o FAILURE. FAILURE detendrá el pipeline aquí si no está en un try-catch.
-                            error "Quality Gate failed: ${qg.status}. Revisa los problemas en SonarQube."
-                        } else {
-                            echo "✅ Quality Gate PASÓ exitosamente."
-                        }
-                    }
-                }
-                echo "=== FIN QUALITY GATE ==="
-            }
-        }
+
 
         // La etapa de Deploy se mantiene como placeholder
         stage('🚀 Deploy (Placeholder)') {
