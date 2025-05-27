@@ -10,7 +10,7 @@ pipeline {
         stage('Clone') {
             steps {
                 timeout(time: 5, unit: 'MINUTES') {
-                    git branch: 'master', url: 'https://github.com/Aaronchelo18/micro-product.git'
+                    git branch: 'main', url: 'https://github.com/Aaronchelo18/micro-product.git'
                 }
             }
         }
