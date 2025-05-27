@@ -1,137 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version> <!-- CONSIDERACIÓN: 3.4.4 es una versión milestone muy reciente. 3.2.5 (o la última estable 3.2.x / 3.3.x) es más recomendable para estabilidad general a menos que necesites algo específico de 3.4.4. Si mantienes 3.4.4, asegúrate que el repo de milestones está bien configurado. Para el ejemplo, usaré una estable. -->
-		<relativePath /> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version> <!-- O la versión estable de Spring Boot que estés usando -->
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
 
     <groupId>com.rah.demo</groupId>
     <artifactId>micro-product</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>micro-product</name> <!-- Añadido para que SonarQube lo tome por defecto -->
-    <description>Demo project for Spring Boot Microservice Product</description> <!-- Añadido para SonarQube -->
+    <name>micro-product</name>
+    <description>Demo project for Spring Boot Microservice Product</description>
 
-	<properties>
-		<java.version>17</java.version>
+    <properties>
+        <java.version>17</java.version>
 
         <!-- Propiedades para SonarQube -->
         <sonar.projectKey>micro-product</sonar.projectKey>
-        <!-- sonar.projectName se tomará de <name> si no se especifica, o puedes ponerlo aquí -->
-        <!-- <sonar.projectName>Micro Product Service</sonar.projectName> -->
+        <sonar.projectName>Micro Product</sonar.projectName> <!-- O usa <name> del proyecto -->
         <sonar.projectVersion>${project.version}</sonar.projectVersion>
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
         <sonar.java.source>${java.version}</sonar.java.source>
         <sonar.java.target>${java.version}</sonar.java.target>
-        <!-- La siguiente propiedad es CRUCIAL y ya la tienes configurada por JaCoCo -->
-        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <!-- SonarQube también puede usar los reportes de Surefire (tests unitarios) -->
-        <sonar.junit.reportsPath>${project.build.directory}/surefire-reports</sonar.junit.reportsPath>
-        <!-- SonarQube necesita saber dónde están los binarios compilados -->
+
+        <!-- Rutas para SonarQube (explícitas para mayor claridad) -->
+        <sonar.sources>src/main/java</sonar.sources>
+        <sonar.tests>src/test/java</sonar.tests>
         <sonar.java.binaries>${project.build.directory}/classes</sonar.java.binaries>
-        <!-- sonar.host.url y sonar.login serán proporcionados por Jenkins -->
-	</properties>
+        <sonar.junit.reportsPath>${project.build.directory}/surefire-reports</sonar.junit.reportsPath>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <!-- sonar.host.url y sonar.login serán proporcionados por Jenkins a través de withSonarQubeEnv -->
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-            <!-- Tu plugin JaCoCo existente - ¡Perfecto! -->
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.11</version> <!-- Actualizado a una versión un poco más reciente, 0.8.8 también está bien -->
-				<executions>
-					<execution>
-						<id>prepare-agent</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-                        <phase>prepare-package</phase> <!-- Asegura que se ejecute después de los tests y antes de empaquetar -->
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<formats>
-								<format>XML</format>
-							</formats>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-            <!-- Es buena práctica definir explícitamente el plugin de Surefire para los tests -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <!-- JaCoCo Maven Plugin (para cobertura de código) -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.11</version> <!-- O la última versión estable que prefieras -->
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>verify</phase> <!-- Genera el reporte durante la fase 'verify' -->
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <formats>
+                                <format>XML</format> <!-- Formato XML para SonarQube -->
+                            </formats>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Surefire Plugin (para ejecutar tests unitarios) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version> <!-- Usa una versión reciente compatible con tu Java y Spring Boot -->
+                <version>3.2.5</version> <!-- O una versión reciente compatible -->
             </plugin>
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
-    <!-- Mantén esto si usas versiones milestone de Spring Boot -->
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-        <!-- Si usas snapshots de Spring Boot (ej. 3.4.4-SNAPSHOT), necesitarías también el repo de snapshots -->
+    <!-- Repositorios (mantén esto si usas versiones milestone/snapshot de Spring Boot) -->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <!-- Si usas snapshots, añade el repositorio de snapshots también -->
         <!--
         <repository>
             <id>spring-snapshots</id>
@@ -142,7 +144,7 @@
             </releases>
         </repository>
         -->
-	</repositories>
+    </repositories>
     <!-- Si usas plugins milestone/snapshot, también necesitarías pluginRepositories -->
     <!--
     <pluginRepositories>
