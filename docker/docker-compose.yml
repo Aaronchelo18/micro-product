@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   micro_product:
-    container_name: product_app_2025
+    container_name: aaron_app
     image: micro/product:1.0.0
     build:
       context: ..
