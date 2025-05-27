@@ -9,7 +9,7 @@ pipeline {
     environment {
         SONAR_TOKEN_CREDENTIAL_ID = 'sonarqube' // ID de tu credencial de SonarQube en Jenkins
         // SONAR_HOST_URL se tomará de la configuración del servidor SonarQube en Jenkins
-        SONAR_SERVER_CONFIG_NAME = 'SonarQubeServerLocal' // CONFIRMA: Nombre de tu config de SonarQube Server en Jenkins
+        SONAR_SERVER_CONFIG_NAME = 'sonarqube' // CONFIRMA: Nombre de tu config de SonarQube Server en Jenkins
     }
 
     stages {
